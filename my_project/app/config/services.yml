@@ -33,3 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    app.controller.check:
+        class: AppBundle\Service\ExampleService
+        public: true
