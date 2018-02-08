@@ -7,6 +7,6 @@ Symfony 3.4.4 was successfully installed. Now you can:
 * Run your application:
 1. Execute the php bin/console server:start command.
 2. Browse to the http://localhost:8000 URL.
-3. Stop server :  Execute the php bin/console server:start command.
+3. Stop server :  Execute the php bin/console server:stop command.
 
 * Read the documentation at https://symfony.com/doc
