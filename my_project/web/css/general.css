@@ -24,3 +24,61 @@ footer #facebook-icon-link{
 footer i{
 	margin-right: 10px;
 }
+
+footer a{
+	color: inherit;
+	text-decoration: none;
+}
+
+footer #facebook-icon-link:hover > i{
+	color:rgb(59,89,152);
+}
+
+footer #twitter-icon-link:hover > i{
+	color:rgb(0,172,237);
+}
+
+footer #youtube-icon-link:hover > i{
+	color:rgb(255,0,0);
+}
+
+footer button:hover{
+	color : grey;
+}
+
+/*
+*Header
+*/
+
+#header{
+	position: fixed;
+	left: 0;
+	top:0;
+	width: 100%;
+	height: 50px;
+	background-color: lightgrey;
+}
+
+#header > div{
+	display: inline-block;
+}
+
+#logo{
+	left:0;
+}
+
+#spacer{
+	top:0;
+	width: 100%;
+	height: 50px;
+}
+
+/*
+*
+*/
+
+body{
+	margin:auto;
+	width: 100%;
+	text-align:center;
+}
