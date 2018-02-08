@@ -66,18 +66,6 @@ footer button:hover{
 	white-space: nowrap;
 }
 
-#logo{
-	background-color: red;
-}
-
-#pages{
-	background-color: yellow;
-}
-
-#profil{
-	background-color: green;
-}
-
 #header > div{
 	display: inline-block;
 	top:0;
