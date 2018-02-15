@@ -61,7 +61,7 @@ footer button:hover{
 	left: 0;
 	top:0;
 	width: 100%;
-	height: 50px;
+	height: 70px;
 	background-color: lightgrey;
 	white-space: nowrap;
 }
@@ -75,16 +75,27 @@ footer button:hover{
 	vertical-align: middle;
 }
 
-#header > div > a{
-	/*vertical-align: middle;*/
-	line-height: 50px;
+#logout_link{
+	line-height: 15px;
 	text-decoration: none;
 	color:black;
 	font-weight: bold;
 }
 
+.header_link{
+	line-height: 70px;
+	text-decoration: none;
+	color:black;
+	font-weight: bold;
+}
+
+#header > div > p{
+	margin: 0px;
+	line-height: 25px;
+}
+
 #header > div > i{
-	line-height: 50px;
+	line-height: 70px;
 }
 
 #header > div > a:hover{
@@ -92,7 +103,7 @@ footer button:hover{
 }
 
 #header > div > a > img{
-	margin-top: 9px;
+	margin-top: 17px;
 	width: 32px;
 	height: 32px;
 }
@@ -105,12 +116,28 @@ footer button:hover{
 #spacer{
 	top:0;
 	width: 100%;
-	height: 70px;
+	height: 90px;
 }
 
 /*
 *
 */
+
+label{
+	display: inline-block;
+	width: 100px;
+	text-align: left;
+}
+
+.flash_message{
+	width: 95%;
+	height: 30px;
+	color:white;
+	background-color: gray;
+	margin:auto;
+	margin-top: 10px;
+	margin-bottom: 40px;
+}
 
 body{
 	margin:auto;

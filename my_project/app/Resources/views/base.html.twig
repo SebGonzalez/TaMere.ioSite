@@ -11,15 +11,42 @@
     </head>
     <body>
         {% block header %}
-            {% set loged = true %}
-            {% if loged == false%}
+            {% if app.session.get('loged') == false%}
                 {% include 'header_not_log.html.twig' %}
             {%else%}
                 {% include 'header_log.html.twig' %}
             {%endif%}
         {% endblock %}
+        {% block flashmessage %}
+            {% for message in app.session.flashbag.get('message') %}
+                <p class="flash_message">{{message}}</p>
+            {% endfor %}
+        {% endblock %}
         {% block body %}{% endblock %}
         {% include 'footer.html.twig' %}
         {% block javascripts %}{% endblock %}
     </body>
+    <!-- Pour que les flash messages disparaissent au bout de deux secondes -->
+    <script>
+        window.onload = function(){ //Lorsque la page a termine de charger
+            setTimeout(function(){ //On execute le code la fonction en parametre des que 3 secondes sont passees
+                var op = 1; //Opacité initiale de 1
+                var timer = setInterval(function(){ // defini un timer appele toute les 50 millisecondes
+                    var flash_messages = document.getElementsByClassName('flash_message'); //Recupere tous les flash-messages
+                    if(op <= 0.1){ //Si l'opacite est inférieure a 10%
+                        clearInterval(timer); //On stop l'execution du timer
+                        for(var i=0; i < flash_messages.length;i++){ //On masque tous les flash-messages
+                            flash_messages[i].style.display = 'none';
+                        }
+                    }
+                    for(var i=0; i < flash_messages.length;i++){
+                        flash_messages[i].style.opacity = op;
+                        flash_messages[i].filter = 'alpha(opacity=' + op * 100 + ")";
+                    }
+                    op -= op * 0.1;
+                }, 50);
+                
+            }, 3000);
+        };
+    </script>
 </html>

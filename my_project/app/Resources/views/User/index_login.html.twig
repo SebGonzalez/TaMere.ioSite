@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Connexion{% endblock %}
+{% block header %}
+	{% include 'header_in_login.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<form action="{{ path('appbundle_login') }}" method="post">
+		<label for="user_login">Login</label><input id="user_login" type="text" name="user_login" autofocus="true"><br/><br/>
+		<label for="user_password">Password</label><input id="user_password" type="password" name="user_password"><br/><br/>
+		<input type="submit" name="send">
+	</form>
+	<br/>
+	<a href="{{ path('appbundle_signup_index') }}">Pas encore de compte ? Inscrivez vous ici</a>
+{% endblock %}

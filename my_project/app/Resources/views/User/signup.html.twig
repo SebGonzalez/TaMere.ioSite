@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+	<form action="{{ path('appbundle_signup') }}" method="post" enctype="multipart/form-data">
+		<label for="visitor_login">Login</label><input id="visitor_login" type="text" name="visitor_login" autofocus="true" required><br/><br/>
+		<label for="visitor_password">Mot de passe</label><input id="visitor_password" type="password" name="visitor_password" required><br/><br/>
+		<label for="visitor_confirm_password">Confirmer le mot de passe</label><input id="visitor_confirm_password" type="password" name="visitor_confirm_password" required><br/><br/>
+		<label for="visitor_firstname">Prénom</label><input id="visitor_firstname" type="textt" name="visitor_firstname" required><br/><br/>
+		<label for="visitor_lastname">Nom</label><input id="visitor_lastname" type="text" name="visitor_lastname" required><br/><br/>
+		<label>Choisissez une photo de profil</label><input type="file" name="avatar" required>
+		<input type="submit" name="send">
+	</form>
+{% endblock %}
