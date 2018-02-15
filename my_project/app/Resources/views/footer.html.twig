@@ -1,11 +1,19 @@
 <div id="spacer_footer">
 </div>
 <footer>
-	<button>Mention légal</button>
-	<button>Propriétaire</button>
-	<button>Assistance</button>
+	<form method="get" action="{{path('legal mention')}}">
+		<button>Mention légal</button>
+	</form>
+	<form method="get" action="{{path('owner')}}">
+		<button>Propriétaire</button>
+	</form>
+	<form method="get" action="{{path('assistance')}}">
+		<button>Assistance</button>
+	</form>
 	<a id="facebook-icon-link" href="https://www.google.fr"><i class="fab fa-facebook-square fa-2x"></i></a>
 	<a id="twitter-icon-link" href="https://www.google.fr"><i class="fab fa-twitter-square fa-2x"></i></a>
 	<a id="youtube-icon-link" href="https://www.google.fr"><i class="fab fa-youtube-square fa-2x"></i></a>
-	<button style="position: fixed;right: 0;">FAQ</button>
+	<form method="get" action="{{path('FAQ')}}">
+		<button style="position: fixed;right: 0;">FAQ</button>
+	</form>
 </footer>
