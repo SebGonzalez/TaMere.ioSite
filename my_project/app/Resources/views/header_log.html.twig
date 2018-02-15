@@ -1,0 +1,18 @@
+<div id="header">
+    <div id="logo">
+        <a href="{{path('homepage')}}"><img src="{{ asset('favicon.ico') }}" alt="Retour à l'accueil"/></a>
+    </div>
+    <div id="pages">
+        <a href="">Stats</a>
+        <a href="">Télécharger</a>
+        <a href="">Boutique</a>
+    </div>
+    <div id="profil">
+        <p>{{user.firstname ~ ' ' ~ user.lastname}}</p>
+        <p>{{user.login}}</p>
+        <button>Déconnexion</button>
+        <img src="{{asset(user.login/avatar.png)}}">
+    </div>
+</div>
+<div id="spacer">
+</div>
