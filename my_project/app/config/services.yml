@@ -36,3 +36,8 @@ services:
     app.controller.check:
         class: AppBundle\Service\ExampleService
         public: true
+
+    #Service pour le transfert de fichier entre client et serveur
+    file_transfer:
+        class: AppBundle\Service\FileTransfer
+        public: true

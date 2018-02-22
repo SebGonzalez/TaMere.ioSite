@@ -1,0 +1,127 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Editer profil{% endblock %}
+
+{% block body %}
+<h2>Ta Mère.io</h2>
+<p>Modification du profil (Laissez vide pour ne rien modifier)</p>
+<div id="edit_profile_form">
+	<br/>
+	<form action="{{ path('appbundle_signup') }}" method="post" enctype="multipart/form-data" onsubmit="return validateSignupForm()">
+		<label for="edit_profile_email">Nouvel Email</label><br/><br/>
+		<input id="edit_profile_email" type="email" name="edit_profile_email" required><br/><br/>
+		<label for="edit_profile_confirm_email">Réecrivez votre email</label><br/><br/>
+		<input id="edit_profile_confirm_email" type="email" name="edit_profile_confirm_email" required> <i id="check_email_confirm" style="display: none" class="far fa-check-square"></i><i id="not_check_email_confirm" style="display: none" class="fas fa-times"></i><br/><br/>
+		<label for="edit_profile_password">Nouveau Mot de passe</label><br/><br/>
+		<input id="edit_profile_password" type="password" name="edit_profile_password" required><br/><br/>
+		<label for="edit_profile_confirm_password">Confirmer le mot de passe</label><br/><br/>
+		<input id="edit_profile_confirm_password" type="password" name="edit_profile_confirm_password" required> <i id="check_password_confirm" style="display:none" class="far fa-check-square"></i><i id="not_check_password_confirm" style="display:none" class="fas fa-times"></i><br/><br/>
+		<div id="country_and_money_options_container">
+			<select>
+				<option>France</option>
+				<option>Allemagne</option>
+				<option>Angleterre</option>
+				<option>Suisse</option>
+			</select><br/><br/>
+			<select>
+				<option>EUR</option>
+				<option>USD</option>
+				<option>JPY</option>
+				<option>Livre Sterling</option>
+			</select>
+		</div>
+		<div id="edit_profile_picture_container">
+			<label>Choisissez une photo de profil</label><input id="edit_profile_avatar" type="file" name="avatar" required>
+		</div>
+		<br/><br/><br/><br/>
+		<div id="edit_profile_firstname_container">
+			<label for="visitor_firstname">Prénom</label><br/>
+			<input id="visitor_firstname" type="text" name="edit_profile_firstname" required>
+		</div>
+		<div id="edit_profile_lastname_container">
+			<label for="visitor_lastname">Nom</label><br/>
+			<input id="visitor_lastname" type="text" name="edit_profile_lastname" required>
+		</div><br/><br/>
+		<label>Sexe</label>
+		<input type="radio" name="gender" value="male" checked><label>Homme</label><br/>
+		<label></label>
+		<input type="radio" name="gender" value="female"><label>Femme</label><br/>
+		<label></label>
+		<input type="radio" name="gender" value="other"><label>Autre</label><br/><br/>
+		<label for="edit_profile_birthdate">Date de naissance</label>
+		<input id="edit_profile_birthdate" type="date" name="edit_profile_birthdate" required> <i class="far fa-calendar-alt"></i><br/><br/><br/>
+		<input type="submit" name="send"><br/><br/><br/>
+	</form>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+
+		function validateSignupForm(){
+			var newPassword = document.getElementById('edit_profile_password');
+			var newPasswordConfirm = document.getElementById('edit_profile_confirm_password');
+			var newEmail = document.getElementById('edit_profile_email');
+			var newEmailConfirm = document.getElementById('edit_profile_confirm_email');
+
+			if(newPassword.value != newPasswordConfirm.value){
+				alert('Passwords are not the same');
+				return false;
+			}
+
+			if(newEmail.value != newEmailConfirm.value){
+				alert('Emails are not the same');
+				return false;
+			}
+		}
+
+		function updatePasswordConfirmIcon(){
+			var checkPasswordConfirmIcon = document.getElementById('check_password_confirm');
+			var notCheckPasswordConfirmIcon = document.getElementById('not_check_password_confirm');
+			var newPassword = document.getElementById('edit_profile_password');
+			var newPasswordConfirm = document.getElementById('edit_profile_confirm_password');
+			if(newPassword.value == newPasswordConfirm.value && newPasswordConfirm.value.length > 0){
+				checkPasswordConfirmIcon.style.display = 'inline';
+				notCheckPasswordConfirmIcon.style.display = 'none';
+			}else if(newPassword.value != newPasswordConfirm.value && newPasswordConfirm.value.length > 0){
+				notCheckPasswordConfirmIcon.style.display = 'inline';
+				checkPasswordConfirmIcon.style.display = 'none';
+			}else{
+				checkPasswordConfirmIcon.style.display = 'none';
+				notCheckPasswordConfirmIcon.style.display = 'none';
+			}
+		}
+
+		function updateEmailConfirmIcon(){
+			var checkEmailConfirmIcon = document.getElementById('check_email_confirm');
+			var notCheckEmailConfirmIcon = document.getElementById('not_check_email_confirm');
+			var newEmail = document.getElementById('edit_profile_email');
+			var newEmailConfirm = document.getElementById('edit_profile_confirm_email');
+
+			if(newEmail.value == newEmailConfirm.value && newEmailConfirm.value.length > 0){
+				checkEmailConfirmIcon.style.display = 'inline';
+				notCheckEmailConfirmIcon.style.display = 'none';
+			}else if(newEmail.value != newEmailConfirm.value && newEmailConfirm.value.length > 0){
+				notCheckEmailConfirmIcon.style.display = 'inline';
+				checkEmailConfirmIcon.style.display = 'none';
+			}else{
+				checkEmailConfirmIcon.style.display = 'none';
+				notCheckEmailConfirmIcon.style.display = 'none';
+			}
+		}
+
+		window.onload = function(){
+			var newPassword = document.getElementById('edit_profile_password');
+			var newPasswordConfirm = document.getElementById('edit_profile_confirm_password');
+			newPassword.onkeyup = updatePasswordConfirmIcon;
+			newPasswordConfirm.onkeyup = updatePasswordConfirmIcon;
+
+			var newEmail = document.getElementById('edit_profile_email');
+			var newEmailConfirm = document.getElementById('edit_profile_confirm_email');
+			newEmail.oninput = updateEmailConfirmIcon;
+			newEmailConfirm.oninput = updateEmailConfirmIcon;
+		}
+		
+	</script>
+{% endblock %}

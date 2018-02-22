@@ -24,9 +24,9 @@
         {% endblock %}
         {% block body %}{% endblock %}
         {% include 'footer.html.twig' %}
-        {% block javascripts %}{% endblock %}
     </body>
     <!-- Pour que les flash messages disparaissent au bout de deux secondes -->
+    {% block javascripts %}
     <script>
         window.onload = function(){ //Lorsque la page a termine de charger
             setTimeout(function(){ //On execute le code la fonction en parametre des que 3 secondes sont passees
@@ -49,4 +49,5 @@
             }, 30000);
         };
     </script>
+    {% endblock %}
 </html>

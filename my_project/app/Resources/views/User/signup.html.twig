@@ -3,21 +3,112 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-	<form action="{{ path('appbundle_signup') }}" method="post" enctype="multipart/form-data">
-		<label for="visitor_login">Pseudonyme</label><input id="visitor_login" type="text" name="visitor_login" autofocus="true" required><br/><br/>
-		<label for="visitor_email">Email</label><input id="visitor_email" type="email" name="visitor_email" required><br/><br/>
-		<label for="visitor_confirm_email">Réecrivez votre email</label><input id="visitor_confirm_email" type="email" name="visitor_confirm_email" required><br/><br/>
-		<select name="visitor_gender">
-			<option>Homme</option>
-			<option>Femme</option>
-			<option>Autre</option>
-		</select>
-		<label for="visitor_firstname">Prénom</label><input id="visitor_firstname" type="textt" name="visitor_firstname" required><br/><br/>
-		<label for="visitor_lastname">Nom</label><input id="visitor_lastname" type="text" name="visitor_lastname" required><br/><br/>
-		<label for="visitor_password">Mot de passe</label><input id="visitor_password" type="password" name="visitor_password" required><br/><br/>
-		<label for="visitor_confirm_password">Confirmer le mot de passe</label><input id="visitor_confirm_password" type="password" name="visitor_confirm_password" required><br/><br/>
+<div id="signup_form">
+	<br/>
+	<p>Inscription</p>
+	<hr/>
+	<form action="{{ path('appbundle_signup') }}" method="post" enctype="multipart/form-data" onsubmit="return validateSignupForm()">
+		<label for="visitor_login">Pseudonyme</label><br/>
+		<input id="visitor_login" type="text" name="visitor_login" autofocus="true" required><br/><br/>
+		<label for="visitor_email">Email</label><br/>
+		<input id="visitor_email" type="email" name="visitor_email" required><br/><br/>
+		<label for="visitor_confirm_email">Réecrivez votre email</label><br/>
+		<input id="visitor_confirm_email" type="email" name="visitor_confirm_email" required> <i id="check_email_confirm" style="display: none" class="far fa-check-square"></i><i id="not_check_email_confirm" style="display: none" class="fas fa-times"></i><br/><br/>
+		<div id="visitor_firstname_container">
+			<label for="visitor_firstname">Prénom</label><br/>
+			<input id="visitor_firstname" type="text" name="visitor_firstname" required>
+		</div>
+		<div id="visitor_lastname_container">
+			<label for="visitor_lastname">Nom</label><br/>
+			<input id="visitor_lastname" type="text" name="visitor_lastname" required>
+		</div><br/><br/>
+		<label>Sexe</label>
+		<input type="radio" name="gender" value="male" checked><label>Homme</label><br/>
+		<label></label>
+		<input type="radio" name="gender" value="female"><label>Femme</label><br/>
+		<label></label>
+		<input type="radio" name="gender" value="other"><label>Autre</label><br/><br/>
+		<label for="visitor_birthdate">Birthdate</label>
+		<input id="visitor_birthdate" type="date" name="visitor_birthdate" required> <i class="far fa-calendar-alt"></i><br/><br/>
+		<label for="visitor_password">Mot de passe</label><br/>
+		<input id="visitor_password" type="password" name="visitor_password" required><br/><br/>
+		<label for="visitor_confirm_password">Confirmer le mot de passe</label><br/>
+		<input id="visitor_confirm_password" type="password" name="visitor_confirm_password" required> <i id="check_password_confirm" style="display:none" class="far fa-check-square"></i><i id="not_check_password_confirm" style="display:none" class="fas fa-times"></i><br/><br/>
 		
-		<label>Choisissez une photo de profil</label><input type="file" name="avatar" required>
-		<input type="submit" name="send">
+		<label>Choisissez une photo de profil</label><input id="visitor_avatar" type="file" name="avatar" required><br/><br/>
+		<input type="submit" name="send"><br/><br/>
 	</form>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+
+		function validateSignupForm(){
+			var visitorPassword = document.getElementById('visitor_password');
+			var visitorPasswordConfirm = document.getElementById('visitor_confirm_password');
+			var visitorEmail = document.getElementById('visitor_email');
+			var visitorEmailConfirm = document.getElementById('visitor_confirm_email');
+
+			if(visitorPassword.value != visitorPasswordConfirm.value){
+				alert('Passwords are not the same');
+				return false;
+			}
+
+			if(visitorEmail.value != visitorEmailConfirm.value){
+				alert('Emails are not the same');
+				return false;
+			}
+		}
+
+		function updatePasswordConfirmIcon(){
+			var checkPasswordConfirmIcon = document.getElementById('check_password_confirm');
+			var notCheckPasswordConfirmIcon = document.getElementById('not_check_password_confirm');
+			var visitorPassword = document.getElementById('visitor_password');
+			var visitorPasswordConfirm = document.getElementById('visitor_confirm_password');
+
+			if(visitorPassword.value == visitorPasswordConfirm.value && visitorPasswordConfirm.value.length > 0){
+				checkPasswordConfirmIcon.style.display = 'inline';
+				notCheckPasswordConfirmIcon.style.display = 'none';
+			}else if(visitorPassword.value != visitorPasswordConfirm.value && visitorPasswordConfirm.value.length > 0){
+				notCheckPasswordConfirmIcon.style.display = 'inline';
+				checkPasswordConfirmIcon.style.display = 'none';
+			}else{
+				checkPasswordConfirmIcon.style.display = 'none';
+				notCheckPasswordConfirmIcon.style.display = 'none';
+			}
+		}
+
+		function updateEmailConfirmIcon(){
+			var checkEmailConfirmIcon = document.getElementById('check_email_confirm');
+			var notCheckEmailConfirmIcon = document.getElementById('not_check_email_confirm');
+			var visitorEmail = document.getElementById('visitor_email');
+			var visitorEmailConfirm = document.getElementById('visitor_confirm_email');
+
+			if(visitorEmail.value == visitorEmailConfirm.value && visitorEmailConfirm.value.length > 0){
+				checkEmailConfirmIcon.style.display = 'inline';
+				notCheckEmailConfirmIcon.style.display = 'none';
+			}else if(visitorEmail.value != visitorEmailConfirm.value && visitorEmailConfirm.value.length > 0){
+				notCheckEmailConfirmIcon.style.display = 'inline';
+				checkEmailConfirmIcon.style.display = 'none';
+			}else{
+				checkEmailConfirmIcon.style.display = 'none';
+				notCheckEmailConfirmIcon.style.display = 'none';
+			}
+		}
+
+		window.onload = function(){
+			var visitorPassword = document.getElementById('visitor_password');
+			var visitorPasswordConfirm = document.getElementById('visitor_confirm_password');
+			visitorPassword.onkeyup = updatePasswordConfirmIcon;
+			visitorPasswordConfirm.onkeyup = updatePasswordConfirmIcon;
+
+			var visitorEmail = document.getElementById('visitor_email');
+			var visitorEmailConfirm = document.getElementById('visitor_confirm_email');
+			visitorEmail.oninput = updateEmailConfirmIcon;
+			visitorEmailConfirm.oninput = updateEmailConfirmIcon;
+		}
+		
+	</script>
 {% endblock %}

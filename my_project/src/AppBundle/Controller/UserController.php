@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-include __DIR__.'\..\..\..\app\Resources\functions.php';
+//include __DIR__.'\..\..\..\app\Resources\functions.php';
 
 /**
 *@Route("/user")
@@ -81,6 +81,7 @@ class UserController extends Controller
     * @Route("/signup/index",name="appbundle_signup_index")
     */
     public function signUpIndexAction(Request $request){
+        dump($request);
     	return $this->render('User/signup.html.twig');
     }
 
@@ -89,6 +90,9 @@ class UserController extends Controller
     * @Method("Post")
     */
     public function signUpAction(Request $request){
+
+        $file_transfer_service = $this->get('file_transfer');
+
     	$visitor_login = $request->request->get('visitor_login');
     	$visitor_password = $request->request->get('visitor_password');
     	$visitor_confirm_password = $request->request->get('visitor_confirm_password');
@@ -106,18 +110,26 @@ class UserController extends Controller
     	//Ajout de l utilisateur a la base de donnee
 
     	//Si le login existe deja
-    	if(mkdir($_SERVER['DOCUMENT_ROOT'].'/users/'.$visitor_login) == false){
+    	if(@mkdir($_SERVER['DOCUMENT_ROOT'].'/users/'.$visitor_login) == false){
     		$session->getFlashBag()->add('message','Ce login existe déjà');
-    		$this->redirectToRoute('appbundle_signup_index');
+    		return $this->redirectToRoute('appbundle_signup_index');
     	}
     	//Si l'upload echoue
-    	if(upload('avatar',$_SERVER['DOCUMENT_ROOT'].'\\users\\'.$visitor_login.'\\') == false){
+    	if($file_transfer_service->upload('avatar', '/users/'.$visitor_login.'/', array('jpg','png','jpeg'), 3145728) == false){
+            rmdir($_SERVER['DOCUMENT_ROOT'].'/users/'.$visitor_login);
     		$session->getFlashBag()->add('message','L\'upload a echoue');
-    		$this->redirectToRoute('appbundle_signup_index');
+    		return $this->redirectToRoute('appbundle_signup_index');
     	}
 
     	$session->getFlashBag()->add('message','Votre compte a bien été crée');
 
     	return $this->redirectToRoute('appbundle_login_home');
+    }
+
+    /**
+    *@Route("/profile/edit/index",name="appbundle_profil_edit")
+    */
+    public function editProfileIndexAction(){
+        return $this->render('User/edit_profile.html.twig');
     }
 }
