@@ -9,7 +9,11 @@
 	<hr/>
 	<form action="{{ path('appbundle_signup') }}" method="post" enctype="multipart/form-data" onsubmit="return validateSignupForm()">
 		<label for="visitor_login">Pseudonyme</label><br/>
-		<input id="visitor_login" type="text" name="visitor_login" autofocus="true" required><br/><br/>
+		<input id="visitor_login" type="text" name="visitor_login" autofocus="true" required>
+		<i id="checking_login" style="display: none" class="fas fa-circle-notch fa-spin"></i>
+		<i id="check_login" style="display: none" class="far fa-check-square"></i>
+		<i id="not_check_login" style="display: none" class="fas fa-times"></i>
+		<br/><br/>
 		<label for="visitor_email">Email</label><br/>
 		<input id="visitor_email" type="email" name="visitor_email" required><br/><br/>
 		<label for="visitor_confirm_email">Réecrivez votre email</label><br/>
@@ -98,7 +102,47 @@
 			}
 		}
 
+		function checkLoginExistence(){
+			var visitorLogin = document.getElementById('visitor_login');
+			if(visitorLogin.value !== ""){
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+
+					if(xhr.readyState == 1 || xhr.readyState == 2 || xhr.readyState == 3){
+						document.getElementById('checking_login').style.display = 'inline-block';
+						document.getElementById('check_login').style.display = 'none';
+						document.getElementById('not_check_login').style.display = 'none';
+					}
+					else if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)){
+						if(xhr.responseText == 'OK'){
+							document.getElementById('check_login').style.display = 'inline';
+							document.getElementById('not_check_login').style.display = 'none';
+							document.getElementById('checking_login').style.display = 'none';
+						}else if(xhr.responseText == 'Error'){
+							document.getElementById('not_check_login').style.display = 'inline';
+							document.getElementById('check_login').style.display = 'none';
+							document.getElementById('checking_login').style.display = 'none';
+						}
+					}	
+				}
+				xhr.open('GET',window.location.protocol + '/user/checkLoginExistence?login=' + visitorLogin.value, true);
+				xhr.send(null);
+			}else{
+				document.getElementById('not_check_login').style.display = 'none';
+				document.getElementById('check_login').style.display = 'none';
+				document.getElementById('checking_login').style.display = 'none';
+			}
+		}
+
 		window.onload = function(){
+			var visitorLogin = document.getElementById('visitor_login');
+			var typingTimer;
+
+			visitorLogin.onkeyup = function(){	
+				clearTimeout(typingTimer);
+				typingTimer = setTimeout(checkLoginExistence, 1000);
+			}
+
 			var visitorPassword = document.getElementById('visitor_password');
 			var visitorPasswordConfirm = document.getElementById('visitor_confirm_password');
 			visitorPassword.onkeyup = updatePasswordConfirmIcon;

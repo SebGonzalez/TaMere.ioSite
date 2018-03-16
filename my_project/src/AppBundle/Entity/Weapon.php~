@@ -1,0 +1,31 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Weapon
+ *
+ * @ORM\Table(name="Weapon")
+ * @ORM\Entity
+ */
+class Weapon
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="weaponId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $weaponId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="weaponName", type="string", length=30, nullable=false)
+     */
+    private $weaponName;
+}
+

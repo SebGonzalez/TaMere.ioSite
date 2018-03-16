@@ -1,0 +1,31 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Country
+ *
+ * @ORM\Table(name="Country")
+ * @ORM\Entity
+ */
+class Country
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idCountry", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idcountry;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="countryName", type="string", length=50, nullable=false)
+     */
+    private $countryname;
+}
+

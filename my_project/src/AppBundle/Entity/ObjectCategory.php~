@@ -1,0 +1,35 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Objectcategory
+ *
+ * @ORM\Table(name="ObjectCategory")
+ * @ORM\Entity
+ */
+class ObjectCategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="objectCategoryId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $objectCategoryId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ObjectCategoryLabel", type="string", length=50, nullable=false)
+     */
+    private $objectCategoryLabel;
+
+    
+
+
+}
+

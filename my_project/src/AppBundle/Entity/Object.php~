@@ -1,0 +1,71 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Object
+ *
+ * @ORM\Table(name="Object", indexes={@ORM\Index(name="FK_Object_objectCategoryId", columns={"objectCategoryId"})})
+ * @ORM\Entity
+ */
+class Object
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="objectId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $objectid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectLabel", type="string", length=50, nullable=false)
+     */
+    private $objectlabel;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="objectPrice", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $objectprice;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="objectUploadDate", type="date", nullable=false)
+     */
+    private $objectuploaddate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectDescription", type="text", length=65535, nullable=false)
+     */
+    private $objectdescription;
+
+    /**
+     * @var \AppBundle\Entity\Objectcategory
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Objectcategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="objectCategoryId", referencedColumnName="objectCategoryId")
+     * })
+     */
+    private $objectcategoryid;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->userid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

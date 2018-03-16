@@ -1,0 +1,74 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Stat
+ *
+ * @ORM\Table(name="Stat")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\StatRepository")
+ */
+class Stat
+{
+    /**
+     * @var \AppBundle\Entity\User
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="userId", referencedColumnName="userId")
+     * })
+     */
+    private $user;
+
+    /**
+     * @var \AppBundle\Entity\Weapon
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Weapon")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="weaponId", referencedColumnName="weaponId")
+     * })
+     */
+    private $weapon;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statNbKill", type="bigint", nullable=false)
+     */
+    private $statNbKill;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="statBestLevel", type="integer", nullable=false)
+     */
+    private $statBestLevel;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="statNbGames", type="integer", nullable=false)
+     */
+    private $statNbGames;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="statNbThrowed", type="integer", nullable=false)
+     */
+    private $statNbThrowed;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="statNbTouched", type="integer", nullable=false)
+     */
+    private $statNbTouched;
+}
+

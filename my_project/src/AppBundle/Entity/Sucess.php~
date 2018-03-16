@@ -1,0 +1,54 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Sucess
+ *
+ * @ORM\Table(name="Sucess")
+ * @ORM\Entity
+ */
+class Sucess
+{
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="sucessId")
+     */
+    private $userId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sucessLabel", type="string", length=50, nullable=false)
+     */
+    private $sucessLabel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="successDescription", type="text", length=65535, nullable=false)
+     */
+    private $successDescription;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sucessId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $sucessId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->userid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

@@ -1,0 +1,53 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Purchase
+ *
+ * @ORM\Table(name="Purchase")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PurchaseRepository")
+ */
+class Purchase
+{
+    /**
+    * @var \AppBundle\Entity\Object
+    *
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="NONE")
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Object")
+    * @ORM\JoinColumns({
+    * @ORM\JoinColumn(name="objectId", referencedColumnName="ObjectId")
+    *})
+    */
+    private $object;
+
+    /**
+    * @var \AppBundle\Entity\User
+    *
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="NONE")
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+    * @ORM\JoinColumns({
+    * @ORM\JoinColumn(name="userId", referencedColumnName="userId")
+    *})
+    */
+    private $user;
+
+    /**
+    *@var float
+    *
+    *@ORM\Column(name="purchasePrice", type="float", precision=10, scale=0, nullable=false)
+    */
+    private $purchasePrice;
+
+    /**
+    * @var \DateTime
+    *
+    *@ORM\Column(name="purchaseDate", type="date", nullable=false)
+    */
+    private $purchaseDate;
+}
+

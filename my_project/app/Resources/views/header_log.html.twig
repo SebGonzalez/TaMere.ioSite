@@ -3,13 +3,13 @@
         <a class="header_link" href="{{path('homepage')}}"><img src="{{ asset('favicon.ico') }}" alt="Retour à l'accueil"/></a>
     </div>
     <div id="pages">
-        <a class="header_link" href="">Stats</a>
-        <a class="header_link" href="">Télécharger</a>
-        <a class="header_link" href="">Boutique</a>
+        <a class="header_link" href="{{path('appbundle_profil_stats')}}">Stats</a>
+        <a class="header_link" href="{{path('homepage')}}">Télécharger</a>
+        <a class="header_link" href="{{path('appbundle_shop_home')}}">Boutique</a>
     </div>
     <div id="profil">
+        <a id="header_profile_link" href="{{path('appbundle_profil_edit')}}">{{app.session.get('login')}}</a>
         <p>{{app.session.get('firstname') ~ ' ' ~ app.session.get('lastname')}}</p>
-        <p>{{app.session.get('login')}}</p>
         <a id="logout_link" href="{{ path('appbundle_logout') }}">Déconnexion</a>
     </div>
 </div>

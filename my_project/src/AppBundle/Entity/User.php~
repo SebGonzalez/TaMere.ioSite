@@ -1,0 +1,116 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="userMail", columns={"userMail", "userLogin"})}, indexes={@ORM\Index(name="FK_User_idCountry", columns={"idCountry"})})
+ * @ORM\Entity
+ */
+class User
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="userId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $userId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userFirstName", type="string", length=30, nullable=false)
+     */
+    private $userFirstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userLastName", type="string", length=30, nullable=false)
+     */
+    private $userLastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userMail", type="string", length=50, nullable=false)
+     */
+    private $userMail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userLogin", type="string", length=30, nullable=false)
+     */
+    private $userLogin;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="userBirthday", type="date", nullable=false)
+     */
+    private $userBirthday;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="userGender", type="boolean", nullable=false)
+     */
+    private $userGender;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userPassword", type="string", length=50, nullable=false)
+     */
+    private $userPassword;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="userSubscriptionDate", type="date", nullable=false)
+     */
+    private $userSubscriptionDate;
+
+    
+
+    /**
+     * @var \AppBundle\Entity\Country
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Country")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCountry", referencedColumnName="idCountry")
+     * })
+     */
+    private $idCountry;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sucess", inversedBy="userId")
+     * @ORM\JoinTable(name="unlocked",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="userId", referencedColumnName="userId")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="sucessId", referencedColumnName="sucessId")
+     *   }
+     * )
+     */
+    private $sucessId;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sucessId = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

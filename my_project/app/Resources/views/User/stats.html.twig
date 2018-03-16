@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{%  block title %}Stats{% endblock%}
+
+{% block body %}
+	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+{% endblock%}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		window.onload = function () {
+			var chart = new CanvasJS.Chart("chartContainer",
+			{
+				theme: "theme2",
+				title:{
+					text: "Player Stats"
+				},		
+				data: [
+				{       
+					type: "pie",
+					showInLegend: true,
+					toolTipContent: "{y} - #percent %",
+					yValueFormatString: "#,##0,,.## Million",
+					legendText: "{indexLabel}",
+					dataPoints: [
+					{  y: 4181563, indexLabel: "Nombre Kills" },
+					{  y: 2175498, indexLabel: "Nombre partie(s) jouée(s)" },
+					{  y: 3125844, indexLabel: "Nombre partie(s) mort" }
+					]
+				}
+				]
+			});
+			chart.render();
+		}
+	</script>
+	<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock %}
