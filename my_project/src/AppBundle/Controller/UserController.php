@@ -65,12 +65,14 @@ class UserController extends Controller
             return $this->redirectToRoute('appbundle_login_home');
         }else{
             $session->set('loged',true);
+            $session->set('id', $foundDbUser->getUserId());
             $session->set('login', $foundDbUser->getUserLogin());
             $session->set('firstname', $foundDbUser->getUserFirstName());
             $session->set('lastname', $foundDbUser->getUserLastName());
+            $session->set('avatar', $foundDbUser->getUserAvatarPath());
             $session->getFlashBag()->add('message','Authentification Réussie');
 
-            return $this->redirectToRoute('appbundle_profil_edit');
+            return $this->redirectToRoute('appbundle_profil_index');
         }
     }
 
@@ -194,5 +196,17 @@ class UserController extends Controller
     */
     public function statsIndexAction(){
         return $this->render('User/stats.html.twig');
+    }
+
+    /**
+    *@Route("/profile/index", name="appbundle_profil_index")
+    */
+    public function profileIndexAction(Request $request){
+        $user_repo = $this->getDoctrine()->getRepository('AppBundle:User');
+        $user = $user_repo->findOneBy(array("userId" => $request->getSession()->get('id')));
+        $purchase_repo = $this->getDoctrine()->getRepository('AppBundle:Purchase');
+        $purchases = $purchase_repo->getUserPurchasesWithObjects($request->getSession()->get('id'));
+
+        return $this->render('User/profile_index.html.twig', array('purchases' => $purchases, 'user' => $user));
     }
 }

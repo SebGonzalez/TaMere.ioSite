@@ -18,9 +18,11 @@
             {%endif%}
         {% endblock %}
         {% block flashmessage %}
+            <div id="flash_messages">
             {% for message in app.session.flashbag.get('message') %}
                 <p class="flash_message">{{message}}</p>
             {% endfor %}
+            </div>
         {% endblock %}
         {% block body %}{% endblock %}
         {% include 'footer.html.twig' %}
@@ -29,8 +31,18 @@
     {% block javascripts %}
     <script>
         window.onload = function(){ //Lorsque la page a termine de charger
-            setTimeout(function(){ //On execute le code la fonction en parametre des que 3 secondes sont passees
-                var op = 1; //Opacité initiale de 1
+            var flash_messages = document.getElementsByClassName('flash_message');
+            for(var i=0;i < flash_messages.length;i++){
+                flash_messages[i].addEventListener('animationend', function(event){
+                    event.target.style.display = 'none';
+                });
+            }
+        };
+
+        function cleanFlashMessages(){
+            //On execute le code la fonction en parametre des que 3 secondes sont passees
+            setTimeout(function(){
+            var op = 1; //Opacité initiale de 1
                 var timer = setInterval(function(){ // defini un timer appele toute les 50 millisecondes
                     var flash_messages = document.getElementsByClassName('flash_message'); //Recupere tous les flash-messages
                     if(op <= 0.1){ //Si l'opacite est inférieure a 10%
@@ -45,9 +57,8 @@
                     }
                     op -= op * 0.1;
                 }, 50);
-                
-            }, 30000);
-        };
+            }, 3000);
+        }
     </script>
     {% endblock %}
 </html>

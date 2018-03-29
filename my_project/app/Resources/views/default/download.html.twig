@@ -1,6 +1,14 @@
 {%extends 'base.html.twig'%}
 {%block title%}Téléchargement{%endblock%}
 {%block body%}
-	<h1>Ta Mère.io</h1>
+	<p style="font-weight:bold">Merci d'avoir télécharger le jeu ;)</p>
+	<p>Votre téléchargement démarrera sous peu</p>
+	<a id="download" style="display:none" href="{{ path('download_game') }}"></a>
 {%endblock%}
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		document.getElementById('download').click();
+	</script>
+{% endblock %}
 

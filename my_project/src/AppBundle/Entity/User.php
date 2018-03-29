@@ -77,7 +77,19 @@ class User
      */
     private $userSubscriptionDate;
 
-    
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="userAvatarPath", type="string", length=100, nullable=true)
+    */
+    private $userAvatarPath;
+
+    /**
+    * @var integer
+    *
+    *@ORM\Column(name="userCredit", type="integer", nullable=false)
+    */
+    private $userCredit;
 
     /**
      * @var \AppBundle\Entity\Country
@@ -356,5 +368,53 @@ class User
     public function getSuccessId()
     {
         return $this->successId;
+    }
+
+    /**
+     * Set userAvatarPath
+     *
+     * @param string $userAvatarPath
+     *
+     * @return User
+     */
+    public function setUserAvatarPath($userAvatarPath)
+    {
+        $this->userAvatarPath = $userAvatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get userAvatarPath
+     *
+     * @return string
+     */
+    public function getUserAvatarPath()
+    {
+        return $this->userAvatarPath;
+    }
+
+    /**
+     * Set userCredit
+     *
+     * @param integer $userCredit
+     *
+     * @return User
+     */
+    public function setUserCredit($userCredit)
+    {
+        $this->userCredit = $userCredit;
+
+        return $this;
+    }
+
+    /**
+     * Get userCredit
+     *
+     * @return integer
+     */
+    public function getUserCredit()
+    {
+        return $this->userCredit;
     }
 }

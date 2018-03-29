@@ -64,9 +64,9 @@ class Object
      *
      * @return integer
      */
-    public function getObjectid()
+    public function getObjectId()
     {
-        return $this->objectid;
+        return $this->objectId;
     }
 
     /**

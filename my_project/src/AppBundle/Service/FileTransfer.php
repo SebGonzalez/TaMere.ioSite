@@ -28,5 +28,18 @@ class FileTransfer{
 		//Deplacement
 		return move_uploaded_file($_FILES[$index]["tmp_name"], $target_file);
 	}
+
+	function download($path){
+		$path_parts = pathinfo($path);
+		$filename = $path_parts['basename'];
+		$filepath = $_SERVER['DOCUMENT_ROOT'].'/downloads/'.$filename;
+		set_time_limit(0);
+		$file = @fopen($filepath,"rb");
+		while(!feof($file)){
+			print(@fread($file, 1024*8));
+			ob_flush();
+			flush();
+		}
+	}
 }
 ?>

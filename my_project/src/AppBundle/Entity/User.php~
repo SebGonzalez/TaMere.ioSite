@@ -66,7 +66,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="userPassword", type="string", length=50, nullable=false)
+     * @ORM\Column(name="userPassword", type="string", length=64, nullable=false)
      */
     private $userPassword;
 
@@ -77,40 +77,320 @@ class User
      */
     private $userSubscriptionDate;
 
-    
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="userAvatarPath", type="string", length=100, nullable=true)
+    */
+    private $userAvatarPath;
+
+    /**
+    * @var integer
+    *
+    *@ORM\Column(name="userCredit", type="integer", nullable=false)
+    */
+    private $userCredit;
 
     /**
      * @var \AppBundle\Entity\Country
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Country")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCountry", referencedColumnName="idCountry")
+     *   @ORM\JoinColumn(name="idCountry", referencedColumnName="idCountry", nullable=false)
      * })
      */
     private $idCountry;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sucess", inversedBy="userId")
-     * @ORM\JoinTable(name="unlocked",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="userId", referencedColumnName="userId")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="sucessId", referencedColumnName="sucessId")
-     *   }
-     * )
-     */
-    private $sucessId;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->sucessId = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->successId = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-}
 
+    /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set userFirstName
+     *
+     * @param string $userFirstName
+     *
+     * @return User
+     */
+    public function setUserFirstName($userFirstName)
+    {
+        $this->userFirstName = $userFirstName;
+
+        return $this;
+    }
+
+    /**
+     * Get userFirstName
+     *
+     * @return string
+     */
+    public function getUserFirstName()
+    {
+        return $this->userFirstName;
+    }
+
+    /**
+     * Set userLastName
+     *
+     * @param string $userLastName
+     *
+     * @return User
+     */
+    public function setUserLastName($userLastName)
+    {
+        $this->userLastName = $userLastName;
+
+        return $this;
+    }
+
+    /**
+     * Get userLastName
+     *
+     * @return string
+     */
+    public function getUserLastName()
+    {
+        return $this->userLastName;
+    }
+
+    /**
+     * Set userMail
+     *
+     * @param string $userMail
+     *
+     * @return User
+     */
+    public function setUserMail($userMail)
+    {
+        $this->userMail = $userMail;
+
+        return $this;
+    }
+
+    /**
+     * Get userMail
+     *
+     * @return string
+     */
+    public function getUserMail()
+    {
+        return $this->userMail;
+    }
+
+    /**
+     * Set userLogin
+     *
+     * @param string $userLogin
+     *
+     * @return User
+     */
+    public function setUserLogin($userLogin)
+    {
+        $this->userLogin = $userLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get userLogin
+     *
+     * @return string
+     */
+    public function getUserLogin()
+    {
+        return $this->userLogin;
+    }
+
+    /**
+     * Set userBirthday
+     *
+     * @param \DateTime $userBirthday
+     *
+     * @return User
+     */
+    public function setUserBirthday($userBirthday)
+    {
+        $this->userBirthday = $userBirthday;
+
+        return $this;
+    }
+
+    /**
+     * Get userBirthday
+     *
+     * @return \DateTime
+     */
+    public function getUserBirthday()
+    {
+        return $this->userBirthday;
+    }
+
+    /**
+     * Set userGender
+     *
+     * @param boolean $userGender
+     *
+     * @return User
+     */
+    public function setUserGender($userGender)
+    {
+        $this->userGender = $userGender;
+
+        return $this;
+    }
+
+    /**
+     * Get userGender
+     *
+     * @return boolean
+     */
+    public function getUserGender()
+    {
+        return $this->userGender;
+    }
+
+    /**
+     * Set userPassword
+     *
+     * @param string $userPassword
+     *
+     * @return User
+     */
+    public function setUserPassword($userPassword)
+    {
+        $this->userPassword = $userPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get userPassword
+     *
+     * @return string
+     */
+    public function getUserPassword()
+    {
+        return $this->userPassword;
+    }
+
+    /**
+     * Set userSubscriptionDate
+     *
+     * @param \DateTime $userSubscriptionDate
+     *
+     * @return User
+     */
+    public function setUserSubscriptionDate($userSubscriptionDate)
+    {
+        $this->userSubscriptionDate = $userSubscriptionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get userSubscriptionDate
+     *
+     * @return \DateTime
+     */
+    public function getUserSubscriptionDate()
+    {
+        return $this->userSubscriptionDate;
+    }
+
+    /**
+     * Set idCountry
+     *
+     * @param \AppBundle\Entity\Country $idCountry
+     *
+     * @return User
+     */
+    public function setIdCountry(\AppBundle\Entity\Country $idCountry = null)
+    {
+        $this->idCountry = $idCountry;
+
+        return $this;
+    }
+
+    /**
+     * Get idCountry
+     *
+     * @return \AppBundle\Entity\Country
+     */
+    public function getIdCountry()
+    {
+        return $this->idCountry;
+    }
+
+    /**
+     * Add sucessId
+     *
+     * @param \AppBundle\Entity\Sucess $sucessId
+     *
+     * @return User
+     */
+    public function addSuccessId(\AppBundle\Entity\Success $successId)
+    {
+        $this->successId[] = $successId;
+
+        return $this;
+    }
+
+    /**
+     * Remove sucessId
+     *
+     * @param \AppBundle\Entity\Sucess $sucessId
+     */
+    public function removeSuccessId(\AppBundle\Entity\Success $successId)
+    {
+        $this->successId->removeElement($successId);
+    }
+
+    /**
+     * Get sucessId
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSuccessId()
+    {
+        return $this->successId;
+    }
+
+    /**
+     * Set userAvatarPath
+     *
+     * @param string $userAvatarPath
+     *
+     * @return User
+     */
+    public function setUserAvatarPath($userAvatarPath)
+    {
+        $this->userAvatarPath = $userAvatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get userAvatarPath
+     *
+     * @return string
+     */
+    public function getUserAvatarPath()
+    {
+        return $this->userAvatarPath;
+    }
+}

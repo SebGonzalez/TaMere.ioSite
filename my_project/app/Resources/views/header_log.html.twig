@@ -8,7 +8,7 @@
         <a class="header_link" href="{{path('appbundle_shop_home')}}">Boutique</a>
     </div>
     <div id="profil">
-        <a id="header_profile_link" href="{{path('appbundle_profil_edit')}}">{{app.session.get('login')}}</a>
+        <a id="header_profile_link" href="{{path('appbundle_profil_index')}}">{{app.session.get('login')}}</a>
         <p>{{app.session.get('firstname') ~ ' ' ~ app.session.get('lastname')}}</p>
         <a id="logout_link" href="{{ path('appbundle_logout') }}">Déconnexion</a>
     </div>

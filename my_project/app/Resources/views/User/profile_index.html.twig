@@ -1,0 +1,55 @@
+{%extends 'base.html.twig'%}
+{%block title%}Profil{%endblock%}
+{%block stylesheets%}
+	{{ parent() }}
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Londrina+Shadow" rel="stylesheet">
+{% endblock %}
+{%block body%}
+	<img id="user_avatar" src="{{ asset('users/' ~ app.session.get('login') ~ '/' ~ app.session.get('avatar')) }}" height="100px" width="100px">
+	<span id="user_login">{{ app.session.get('login') }}</span>
+	<input id="user_search" type="text" placeholder="Rechercher un joueur">
+	<button id="user_edit_profile_button" class="shadow-button" onclick="window.location.href='{{ path('appbundle_profil_edit') }}'">Editer votre profil</button>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div>
+		<div style="display:inline-block;width:33%;text-align: left;">
+			<p style="font-family: 'Pacifico', cursive;font-size: 1.5em;margin:0;margin-left: 30px;">Votre rang</p>
+			<p style="display: inline-block;font-family: 'Londrina Shadow', cursive;font-size: 2.5em;margin:0;margin-left: 30px;">1 / 2104</p>
+		</div>
+		<div style="display: inline-block;width:33%;text-align:left;">
+			<p style="font-family: 'Pacifico', cursive;font-size: 1.5em;margin:0;margin-left: 30px;">Votre niveau</p>
+			<p style="display: inline-block;font-family: 'Londrina Shadow', cursive;font-size: 2.5em;margin:0;margin-left: 30px;">Lvl 14</p>
+		</div>
+		<div style="display: inline-block;width:33%;text-align: left;position: relative;">
+			<p style="font-family: 'Pacifico', cursive;font-size: 1.5em;margin:0;margin-left: 30px;">Vos crédits</p>
+			<p style="display: inline-block;font-family: 'Londrina Shadow', cursive;font-size: 2.5em;margin:0;margin-left: 30px;">{{user.getUserCredit()|number_format(0,'.',' ')}} C</p>
+			<button id="user_reload_credits" class="shadow-button">Recharger vos crédits</button>
+		</div>
+	</div>
+	<p>Pour accéder au stats avancées <a href="{{ path('appbundle_profil_stats') }}">cliquer ici</a></p>
+	<button id="user_change_skin_button" class="button"><span>Changer votre skin</span></button>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<p style="font-family: 'Pacifico', cursive;font-size: 1.5em;">Inventaire</p>
+	<div style="width:100%;text-align: left">
+		{% for purchase in purchases %}
+			<p style="margin-left: 30px">{{ purchase.getPurchaseDate|date('Y-m-d') ~ ' | ' ~ purchase.getObject.getObjectLabel ~ ' | ' ~ purchase.getObject.getObjectCategoryId.getObjectCategoryLabel ~ ' | ' ~ purchase.getPurchasePrice }}</p>
+		{% endfor %}
+	</div>
+{%endblock%}
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+	</script>
+{% endblock %}
