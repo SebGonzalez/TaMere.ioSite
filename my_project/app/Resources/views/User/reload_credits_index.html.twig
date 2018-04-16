@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block title %}Recharger crédits{% endblock %}
+{%block stylesheets%}
+	{{ parent() }}
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Londrina+Shadow" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id="reload_credit_categories">
+	<a class="reload_credit_link" href="{{ path('appbundle_reloadcredits_250') }}">
+		<div class="reload_credit_category">
+			<img class="reload_credit_picture" src="{{ asset('illustrations/Credits-250.png') }}"/>
+			<p class="reload_credit_amount">250 Crédits</p>
+		</div>
+	</a>
+	<a class="reload_credit_link" href="{{ path('appbundle_reloadcredits_750') }}">
+		<div class="reload_credit_category">
+			<img class="reload_credit_picture" src="{{ asset('illustrations/Credits-750.png') }}"/>
+			<p class="reload_credit_amount">750 Crédits</p>
+		</div>
+	</a>
+	<a class="reload_credit_link" href="{{ path('appbundle_reloadcredits_2000') }}">
+		<div class="reload_credit_category">
+			<img class="reload_credit_picture" src="{{ asset('illustrations/Credits-2000.png') }}"/>
+			<p class="reload_credit_amount">2000 Crédits</p>
+		</div>
+	</a>
+	<a class="reload_credit_link" href="{{ path('appbundle_reloadcredits_5000') }}">
+		<div class="reload_credit_category">
+			<img class="reload_credit_picture" src="{{ asset('illustrations/Credits-5000.png') }}"/>
+			<p class="reload_credit_amount">5000 Crédits</p>
+		</div>
+	</a>
+</div>
+{% endblock %}

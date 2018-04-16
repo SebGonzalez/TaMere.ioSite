@@ -7,11 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Purchase
  *
- * @ORM\Table(name="Purchase", indexes={@ORM\Index(name="FK_Purchase_objectId", columns={"objectId"})})
+ * @ORM\Table(name="Purchase", indexes={@ORM\Index(name="FK_Purchase_objectId", columns={"objectId"}),@ORM\Index(name="IDX_9861B36D64B64DCC", columns={"userId"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PurchaseRepository")
  */
 class Purchase
 {
+    /**
+    *@var float
+    *
+    *@ORM\Column(name="purchasePrice", type="float", precision=10, scale=0, nullable=false)
+    */
+    private $purchasePrice;
+
+    /**
+    * @var \DateTime
+    *
+    *@ORM\Column(name="purchaseDate", type="date", nullable=false)
+    */
+    private $purchaseDate;
+    
     /**
     * @var \AppBundle\Entity\User
     *
@@ -35,20 +49,6 @@ class Purchase
     *})
     */
     private $object;
-
-    /**
-    *@var float
-    *
-    *@ORM\Column(name="purchasePrice", type="float", precision=10, scale=0, nullable=false)
-    */
-    private $purchasePrice;
-
-    /**
-    * @var \DateTime
-    *
-    *@ORM\Column(name="purchaseDate", type="date", nullable=false)
-    */
-    private $purchaseDate;
 
     /**
      * Set purchasePrice

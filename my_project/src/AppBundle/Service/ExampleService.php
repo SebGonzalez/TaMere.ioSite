@@ -8,6 +8,8 @@
 
 namespace AppBundle\Service;
 
+//TO DO Ce service peur etre supprime
+
 class ExampleService
 {
     /**

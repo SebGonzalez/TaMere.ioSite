@@ -28,10 +28,6 @@ class ObjectCategory
      */
     private $objectCategoryLabel;
 
-    
-
-
-
     /**
      * Get objectCategoryId
      *

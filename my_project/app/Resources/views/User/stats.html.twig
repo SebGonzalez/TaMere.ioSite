@@ -1,38 +1,139 @@
 {% extends "base.html.twig" %}
 
 {%  block title %}Stats{% endblock%}
-
+{% block stylesheets %}
+	{{parent()}}
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Londrina+Shadow" rel="stylesheet">
+	<style>
+		#autocomplete-items div:hover{
+			background-color: lightgray;
+			cursor: pointer;
+		}
+		table,th,td{
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+	</style>
+{% endblock %}
 {% block body %}
-	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<p style="font-size:3em;font-family: 'Londrina Shadow', cursive; text-align: left;margin-left: 40px;">Statistiques de {{user.getUserLogin()}}</p>
+<p style="font-family: 'Pacifico', cursive;font-size: 1.5em;margin:0px;">Rang:</p>
+<p style="display: inline-block;font-family: 'Londrina Shadow', cursive;font-size: 2.5em;margin:0px;">{% if user_rank == null%}?{% else %}{{user_rank}}{% endif %}ème sur {{nb_user}}</p><br/>
+<form autocomplete="off">
+	<div class="autocomplete" width="300px" style="position: relative;display: inline-block;">
+		<input id="user_search" type="text" placeholder="Rechercher un joueur">
+		<div id="autocomplete-items" style="position: absolute;left: 0;right: 0;top:100%;z-index: 99;border: 1px solid #d4d4d4;border-bottom: none;border-top: none;"></div>
+	</div>
+</form>
+
+<body>
+	{% for weaponStat in weaponStats %}
+    	<div id="barchart_material_{{weaponStat.getObject().getObjectLabel()}}" style="width: 900px; height: 300px;margin-left: 30px;"></div>
+    {% endfor %}
+    <!-- TOP World 10 -->
+    <p style="font-size:3em;font-family: 'Londrina Shadow', cursive; text-align: left;margin-left: 40px;">Top 10 mondial</p>
+    <table style="width:98%;margin-left: 20px;">
+    <tr>
+    	<th>Login</th>
+    	<th>Nombre kills</th> 
+    	<th>Rang</th>
+    </tr>
+    {% set i = 0 %}
+    {% for user in users_rank  %}
+    	<tr>
+    		<td>{{user.userLogin}}</td>
+    		<td>{{user.nbkill}}</td> 
+    		<td>{{i+1}}</td>
+    		{% set i = i + 1 %}
+    	</tr>
+    {% endfor %}
+    </table>
+ </body>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+      	var options = {
+          chart: {
+            title: 'Statistiques utilisateur',
+            subtitle: '{{user.getUserLogin()}}',
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
+
+      	{% for weaponStat in weaponStats %}
+
+        var data_{{weaponStat.getObject().getObjectLabel()}} = google.visualization.arrayToDataTable([
+          ['{{weaponStat.getObject().getObjectLabel()}}', 'Nombre Kills', 'Meilleur niveau', 'Nombre de parties','Nombre de lancés','Nombre de touchés'],
+          	[
+          	'',
+          	{{weaponStat.getStatNbKill()}},
+          	{{weaponStat.getStatBestLevel()}},
+          	{{weaponStat.getStatNbGames()}},
+          	{{weaponStat.getStatNbThrowed()}},
+          	{{weaponStat.getStatNbTouched()}}
+          	]
+        ]);
+
+        var chart_{{weaponStat.getObject().getObjectLabel()}} = new google.charts.Bar(document.getElementById('barchart_material_{{weaponStat.getObject().getObjectLabel()}}'));
+
+        chart_{{weaponStat.getObject().getObjectLabel()}}.draw(data_{{weaponStat.getObject().getObjectLabel()}}, google.charts.Bar.convertOptions(options));
+
+        {% endfor %}
+      }
+    </script>
 {% endblock%}
 
 {% block javascripts %}
-	{{ parent() }}
-	<script type="text/javascript">
-		window.onload = function () {
-			var chart = new CanvasJS.Chart("chartContainer",
-			{
-				theme: "theme2",
-				title:{
-					text: "Player Stats"
-				},		
-				data: [
-				{       
-					type: "pie",
-					showInLegend: true,
-					toolTipContent: "{y} - #percent %",
-					yValueFormatString: "#,##0,,.## Million",
-					legendText: "{indexLabel}",
-					dataPoints: [
-					{  y: 4181563, indexLabel: "Nombre Kills" },
-					{  y: 2175498, indexLabel: "Nombre partie(s) jouée(s)" },
-					{  y: 3125844, indexLabel: "Nombre partie(s) mort" }
-					]
+	{{parent()}}
+	<script>
+		var input = document.getElementById('user_search');
+		initializeInput(input);
+		var targetPage = '{{path('appbundle_profil_stats')}}';
+
+		function initializeInput(elmnt){
+			elmnt.addEventListener('input',function(e){
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)){
+						var response = JSON.parse(xhr.responseText);
+						closeAllLists();
+						addResultsToDropDown(elmnt, response);
+						console.log(response);
+					}	
 				}
-				]
+				xhr.open('GET','{{app.request.getSchemeAndHttpHost() ~ app.request.baseurl()}}' + '/user/getProbableUsers?login=' + this.value, true);
+				xhr.send(null);
 			});
-			chart.render();
 		}
+
+		function addResultsToDropDown(input, items){
+			items.forEach(function(item, index){
+				var b = document.createElement('div');
+				b.style = 'border-bottom: 1px solid #d4d4d4;';
+				b.className = 'autocomplete-item';
+				b.innerHTML = '<span>' + item['userLogin'] + '</span><input type="hidden" value=\"' + item['userLogin'] + '\">';
+				b.addEventListener('click',function(){
+					window.location.href = targetPage + '/' + this.getElementsByTagName('input')[0].value;
+				});
+				var resultDropDownDiv = document.getElementById('autocomplete-items');
+				resultDropDownDiv.appendChild(b);
+			})
+		}
+
+		//Search user to show
+		function closeAllLists(elmnt) {
+    		/*close all autocomplete lists in the document,
+    		except the one passed as an argument:*/
+    		var x = document.getElementsByClassName("autocomplete-item");
+    		var count = x.length;
+    		for (var i = 0; i < count; i++) {
+    			x[0].parentNode.removeChild(x[0]);
+    		}
+    	}
 	</script>
-	<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 {% endblock %}

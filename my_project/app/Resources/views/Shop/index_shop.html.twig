@@ -14,7 +14,7 @@
 				<p class="item_label">{{ new.getObjectLabel() }}</p>
 				<p class="item_category">{{ new.getObjectCategoryId().getObjectCategoryLabel() }}</p>
 				<img class="item_icon" src="{{ asset('favicon.ico')}}"/>
-				<p class="item_price">{{ new.getObjectPrice() }}€</p>
+				<p class="item_price">{{ new.getObjectPrice() }} Crédits</p>
 				<button class="item_buy" onclick="buyItem(event,'{{new.getObjectId()}}')">Acheter</button>
 			</div>
 		{% endfor %}
@@ -25,7 +25,7 @@
 				<p class="item_label">{{ weapon.getObjectLabel() }}</p>
 				<p class="item_category">{{ weapon.getObjectCategoryId().getObjectCategoryLabel() }}</p>
 				<img class="item_icon" src="{{ asset('favicon.ico')}}"/>
-				<p class="item_price">{{ weapon.getObjectPrice() }}€</p>
+				<p class="item_price">{{ weapon.getObjectPrice() }} Crédits</p>
 				<button class="item_buy" onclick="buyItem(event,'{{weapon.getObjectId()}}')">Acheter</button>
 			</div>
 		{% endfor %}
@@ -36,7 +36,7 @@
 				<p class="item_label">{{ skin.getObjectLabel() }}</p>
 				<p class="item_category">{{ skin.getObjectCategoryId().getObjectCategoryLabel() }}</p>
 				<img class="item_icon" src="{{ asset('favicon.ico')}}"/>
-				<p class="item_price">{{ skin.getObjectPrice() }}</p>
+				<p class="item_price">{{ skin.getObjectPrice() }} Crédits</p>
 				<button class="item_buy" onclick="buyItem(event,'{{skin.getObjectId()}}')">Acheter</button>
 			</div>
 		{% endfor %}
@@ -68,7 +68,7 @@
 
 		function buyItem(event, itemId){
 			var xhr = new XMLHttpRequest();
-			xhr.open('GET',window.location.protocol + '/shop/buy/' + itemId, true);
+			xhr.open('GET','{{app.request.getSchemeAndHttpHost() ~ app.request.baseurl()}}' + '/shop/buy/' + itemId, true);
 			xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
 
 			xhr.onreadystatechange = function(){
@@ -77,8 +77,8 @@
 					var flash_message = document.createElement("p");
 					console.log(xhr.responseText);
 					var response = JSON.parse(xhr.responseText);
-					flash_message.appendChild(document.createTextNode(response.message));
-					flash_message.className = "flash_message";
+					flash_message.appendChild(document.createTextNode(response.message[1]));
+					flash_message.className = "flash_message " + response.message[0];
 					flash_message.addEventListener("animationend", function(event){
 						event.target.style.display = 'none';
 					});

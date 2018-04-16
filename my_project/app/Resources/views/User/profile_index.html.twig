@@ -8,8 +8,7 @@
 {%block body%}
 	<img id="user_avatar" src="{{ asset('users/' ~ app.session.get('login') ~ '/' ~ app.session.get('avatar')) }}" height="100px" width="100px">
 	<span id="user_login">{{ app.session.get('login') }}</span>
-	<input id="user_search" type="text" placeholder="Rechercher un joueur">
-	<button id="user_edit_profile_button" class="shadow-button" onclick="window.location.href='{{ path('appbundle_profil_edit') }}'">Editer votre profil</button>
+	<button id="user_edit_profile_button" class="shadow-button" onclick="window.location.href='{{ path('appbundle_profil_edit_index') }}'">Editer votre profil</button>
 	<br/>
 	<br/>
 	<br/>
@@ -28,11 +27,11 @@
 		<div style="display: inline-block;width:33%;text-align: left;position: relative;">
 			<p style="font-family: 'Pacifico', cursive;font-size: 1.5em;margin:0;margin-left: 30px;">Vos crédits</p>
 			<p style="display: inline-block;font-family: 'Londrina Shadow', cursive;font-size: 2.5em;margin:0;margin-left: 30px;">{{user.getUserCredit()|number_format(0,'.',' ')}} C</p>
-			<button id="user_reload_credits" class="shadow-button">Recharger vos crédits</button>
+			<button id="user_reload_credits" class="shadow-button" onclick="window.location.href='{{ path('appbundle_reloadcredits_index') }}'">Recharger vos crédits</button>
 		</div>
 	</div>
 	<p>Pour accéder au stats avancées <a href="{{ path('appbundle_profil_stats') }}">cliquer ici</a></p>
-	<button id="user_change_skin_button" class="button"><span>Changer votre skin</span></button>
+	<button id="user_change_skin_button" class="button" onclick="window.location.href='{{ path('appbundle_skinedition_index') }}'"><span>Changer votre skin</span></button>
 	<br/>
 	<br/>
 	<br/>

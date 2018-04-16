@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Success
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="successId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $successId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="successLabel", type="string", length=50, nullable=false)
@@ -25,15 +34,6 @@ class Success
      * @ORM\Column(name="successDescription", type="text", length=65535, nullable=false)
      */
     private $successDescription;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="successId", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $successId;
 
     /**
      * Constructor

@@ -13,7 +13,7 @@ class PageNotFoundController extends Controller
     public function pageNotFoundAction()
     {
         // redirect the way you want
-        echo "hey";
+        echo "Page not found";
 
     }
 

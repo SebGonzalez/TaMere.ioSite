@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-	<form action="{{ path('appbundle_login') }}" method="post">
+	<form action="{{path('appbundle_login')}}{% if redirectUrl != null %}?redirectUrl={{redirectUrl}}{% endif %}" method="post">
 		<label for="authent_user_login">Login</label><input id="authent_user_login" type="text" name="user_login" autofocus="true"><br/><br/>
 		<label for="authent_user_password">Mot de passe</label><input id="authent_user_password" type="password" name="user_password"><br/><br/>
 		<input type="submit" name="send">

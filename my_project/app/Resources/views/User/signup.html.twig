@@ -125,7 +125,7 @@
 						}
 					}	
 				}
-				xhr.open('GET',window.location.protocol + '/user/checkLoginExistence?login=' + visitorLogin.value, true);
+				xhr.open('GET','{{app.request.getSchemeAndHttpHost() ~ app.request.baseurl()}}' + '/user/checkLoginExistence?login=' + visitorLogin.value, true);
 				xhr.send(null);
 			}else{
 				document.getElementById('not_check_login').style.display = 'none';

@@ -19,8 +19,17 @@
         {% endblock %}
         {% block flashmessage %}
             <div id="flash_messages">
-            {% for message in app.session.flashbag.get('message') %}
-                <p class="flash_message">{{message}}</p>
+            {% for error in app.session.flashbag.get('error') %}
+                <p class="flash_message flash_error">{{error}}</p>
+            {% endfor %}
+            {% for warning in app.session.flashbag.get('warning') %}
+                <p class="flash_message flash_warning">{{warning}}</p>
+            {% endfor %}
+            {% for validation in app.session.flashbag.get('validation') %}
+                <p class="flash_message flash_validation">{{validation}}</p>
+            {% endfor %}
+            {% for information in app.session.flashbag.get('information') %}
+                <p class="flash_message flash_information">{{information}}</p>
             {% endfor %}
             </div>
         {% endblock %}

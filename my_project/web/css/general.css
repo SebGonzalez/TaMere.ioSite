@@ -213,8 +213,7 @@ label{
 	position: relative;
 	width: 100%;
 	height: 60px;
-	color:white;
-	background-color: green;
+	color:black;
 	left:50%;
 	transform: translate(-50%, 0);
 	border-radius: 5px;
@@ -224,11 +223,27 @@ label{
 	animation-delay: 3s;
 	animation-timing-function: ease-in;
 	animation-fill-mode: forwards;
-	opacity: 0.8;
+	opacity: 0.95;
+}
+
+.flash_error{
+	background-color: red;
+}
+
+.flash_warning{
+	background-color: yellow;
+}
+
+.flash_information{
+	background-color: lightblue;
+}
+
+.flash_validation{
+	background-color: green;
 }
 
 @Keyframes flash_message_clear{
-	from{opacity: 0.8;}
+	from{opacity: 0.95;}
 	to{opacity: 0;display: none;}
 }
 
@@ -426,4 +441,50 @@ body{
 	top:10px;
 	right:30px;
 	background-color: #a8b2c1;
+}
+
+/* Reload Credits */
+
+#reload_credit_categories{
+	width: 100%;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.reload_credit_category{
+	position: relative;
+	display: inline-block;
+	width: 23%;
+	height: 100%;
+	margin-left: 4px;
+	background-image:url("../illustrations/credit-background.jpg");
+	background-size: cover;
+	overflow: hidden;
+}
+
+.reload_credit_amount{
+	background-color: orange;
+	font-family: 'Pacifico', cursive; 
+}
+
+.reload_credit_link{
+	text-decoration: none;
+	color:black;
+}
+
+.reload_credit_link:hover{
+	color: gray;
+}
+
+.reload_credit_link:hover > div > img{
+	height: 100px;
+}
+
+.reload_credit_picture{
+	position: absolute;
+	top:50px;
+	left:70px;
+	margin-top:40px;
+	height:90px;
 }

@@ -25,11 +25,11 @@ class Personalization
     private $userId;
 
     /**
-     * @var \AppBundle\Entity\Objectcategory
+     * @var \AppBundle\Entity\ObjectCategory
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Objectcategory")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ObjectCategory")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="objectCategoryId", referencedColumnName="objectCategoryId")
      * })
@@ -41,7 +41,7 @@ class Personalization
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Object")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="objectId", referencedColumnName="objectId", nullable=false)
+     *   @ORM\JoinColumn(name="objectId", referencedColumnName="objectId", nullable=true)
      * })
      */
     private $objectId;
@@ -55,7 +55,7 @@ class Personalization
      *
      * @return Personalization
      */
-    public function setObjectCategoryId(\AppBundle\Entity\Objectcategory $objectCategoryId)
+    public function setObjectCategoryId(\AppBundle\Entity\ObjectCategory $objectCategoryId)
     {
         $this->objectCategoryId = $objectCategoryId;
 
@@ -75,37 +75,37 @@ class Personalization
     /**
      * Set userid
      *
-     * @param \AppBundle\Entity\User $userid
+     * @param \AppBundle\Entity\User $userId
      *
      * @return Personalization
      */
-    public function setUserid(\AppBundle\Entity\User $userid)
+    public function setUserId(\AppBundle\Entity\User $userId)
     {
-        $this->userid = $userid;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get userid
+     * Get userId
      *
      * @return \AppBundle\Entity\User
      */
-    public function getUserid()
+    public function getUserId()
     {
-        return $this->userid;
+        return $this->userId;
     }
 
     /**
      * Set objectid
      *
-     * @param \AppBundle\Entity\Object $objectid
+     * @param \AppBundle\Entity\Object $objectId
      *
      * @return Personalization
      */
-    public function setObjectid(\AppBundle\Entity\Object $objectid = null)
+    public function setObjectId(\AppBundle\Entity\Object $objectId = null)
     {
-        $this->objectid = $objectid;
+        $this->objectId = $objectId;
 
         return $this;
     }
@@ -115,8 +115,8 @@ class Personalization
      *
      * @return \AppBundle\Entity\Object
      */
-    public function getObjectid()
+    public function getObjectId()
     {
-        return $this->objectid;
+        return $this->objectId;
     }
 }

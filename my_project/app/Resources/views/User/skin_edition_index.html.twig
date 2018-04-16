@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+{% block title %}Edition Skin{% endblock %}
+{%block stylesheets%}
+	{{ parent() }}
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Londrina+Shadow" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div style="text-align: left;display: inline-block;">
+<p>Skin :</p>
+<select id="skin_select" style="display: block;" name="Skin" onchange="updatePicture(event, this)">
+	{% for purchase in skinPurchases %}
+			<option name="{{purchase.getObject().getObjectId()}}" value="{{ asset(purchase.getObject().getObjectPicturePath()) }}" {% if purchase.getObject().getObjectId() == skinPersonalization.getObjectId().getObjectId() %}selected{%endif%}>{{purchase.getObject().getObjectLabel()}}</option>
+	{% endfor %}
+</select>
+<p>Arme :</p>
+<select id="weapon_select" style="display: block;" name="weapon" onchange="updatePicture(event, this)">
+	{% for purchase in weaponPurchases %}
+			<option name="{{purchase.getObject().getObjectId() }}" value="{{ asset(purchase.getObject().getObjectPicturePath()) }}" {% if purchase.getObject().getObjectId() == weaponPersonalization.getObjectId().getObjectId() %}selected{%endif%}>{{purchase.getObject().getObjectLabel()}}</option>
+	{% endfor %}
+</select>
+<br/>
+<button id="submitSkinChange" onclick="sendModifications()">Sauvegarder</button>
+</div>
+<div style="display: inline-block;">
+	<img id="current_skin" height="300px" src="{{ asset(skinPersonalization.getObjectId().getObjectPicturePath()) }}">
+</div>
+
+<div style="display: inline-block;">
+	<img id="current_weapon" height="150px" src="{{ asset(weaponPersonalization.getObjectId().getObjectPicturePath()) }}">
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script>
+		function updatePicture(event, select){
+			console.log("Event received");
+			if(event.currentTarget.name=="Skin"){
+				var skin = document.getElementById('current_skin');
+				skin.src = select.options[select.selectedIndex].value;
+			}else if(event.currentTarget.name == "Weapon"){
+				var weapon = document.getElementById('current_weapon');
+				weapon.src = value;
+			}
+		}
+
+		function sendModifications(){
+			var skinId = document.getElementById('skin_select').options[document.getElementById('skin_select').selectedIndex].getAttribute('name');
+			var weaponId = document.getElementById('weapon_select').options[document.getElementById('weapon_select').selectedIndex].getAttribute('name');
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET','{{app.request.getSchemeAndHttpHost() ~ app.request.baseurl()}}' + '/user/skinedition/change/' + skinId + '/' + weaponId, true);
+			xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
+
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)){
+					var flash_message_container = document.getElementById('flash_messages');
+					var flash_message = document.createElement("p");
+					console.log(xhr.responseText);
+					var response = JSON.parse(xhr.responseText);
+					flash_message.appendChild(document.createTextNode(response.message[1]));
+					flash_message.className = "flash_message " + response.message[0];
+					flash_message.addEventListener("animationend", function(event){
+						event.target.style.display = 'none';
+					});
+
+					flash_message_container.appendChild(flash_message);
+				}
+			}
+
+			xhr.send();
+		}
+	</script>
+{% endblock %}

@@ -7,49 +7,33 @@
 <p>Modification du profil (Laissez vide pour ne rien modifier)</p>
 <div id="edit_profile_form">
 	<br/>
-	<form action="{{ path('appbundle_signup') }}" method="post" enctype="multipart/form-data" onsubmit="return validateSignupForm()">
+	<form action="{{ path('appbundle_profil_edit') }}" method="post" enctype="multipart/form-data" onsubmit="return validateSignupForm()">
 		<label for="edit_profile_email">Nouvel Email</label><br/><br/>
-		<input id="edit_profile_email" type="email" name="edit_profile_email" required><br/><br/>
+		<input id="edit_profile_email" type="email" name="edit_profile_email" value="{{user.getUserMail()}}" required><br/><br/>
 		<label for="edit_profile_confirm_email">Réecrivez votre email</label><br/><br/>
-		<input id="edit_profile_confirm_email" type="email" name="edit_profile_confirm_email" required> <i id="check_email_confirm" style="display: none" class="far fa-check-square"></i><i id="not_check_email_confirm" style="display: none" class="fas fa-times"></i><br/><br/>
+		<input id="edit_profile_confirm_email" type="email" name="edit_profile_confirm_email" value="{{user.getUserMail()}}" required> <i id="check_email_confirm" style="display: none" class="far fa-check-square"></i><i id="not_check_email_confirm" style="display: none" class="fas fa-times"></i><br/><br/>
 		<label for="edit_profile_password">Nouveau Mot de passe</label><br/><br/>
-		<input id="edit_profile_password" type="password" name="edit_profile_password" required><br/><br/>
+		<input id="edit_profile_password" type="password" name="edit_profile_password"><br/><br/>
 		<label for="edit_profile_confirm_password">Confirmer le mot de passe</label><br/><br/>
-		<input id="edit_profile_confirm_password" type="password" name="edit_profile_confirm_password" required> <i id="check_password_confirm" style="display:none" class="far fa-check-square"></i><i id="not_check_password_confirm" style="display:none" class="fas fa-times"></i><br/><br/>
-		<div id="country_and_money_options_container">
-			<select>
-				<option>France</option>
-				<option>Allemagne</option>
-				<option>Angleterre</option>
-				<option>Suisse</option>
-			</select><br/><br/>
-			<select>
-				<option>EUR</option>
-				<option>USD</option>
-				<option>JPY</option>
-				<option>Livre Sterling</option>
-			</select>
-		</div>
+		<input id="edit_profile_confirm_password" type="password" name="edit_profile_confirm_password"> <i id="check_password_confirm" style="display:none" class="far fa-check-square"></i><i id="not_check_password_confirm" style="display:none" class="fas fa-times"></i><br/><br/>
 		<div id="edit_profile_picture_container">
-			<label>Choisissez une photo de profil</label><input id="edit_profile_avatar" type="file" name="avatar" required>
+			<label>Choisissez une photo de profil</label><br/><br/><input id="edit_profile_avatar" type="file" name="avatar">
 		</div>
 		<br/><br/><br/><br/>
 		<div id="edit_profile_firstname_container">
-			<label for="visitor_firstname">Prénom</label><br/>
-			<input id="visitor_firstname" type="text" name="edit_profile_firstname" required>
+			<label for="edit_profile_firstname">Prénom</label><br/>
+			<input id="edit_profile_firstname" type="text" name="edit_profile_firstname" value="{{user.getUserFirstName()}}" required>
 		</div>
 		<div id="edit_profile_lastname_container">
-			<label for="visitor_lastname">Nom</label><br/>
-			<input id="visitor_lastname" type="text" name="edit_profile_lastname" required>
+			<label for="edit_profile_lastname">Nom</label><br/>
+			<input id="edit_profile_lastname" type="text" name="edit_profile_lastname" value="{{user.getUserLastName()}}" required>
 		</div><br/><br/>
 		<label>Sexe</label>
-		<input type="radio" name="gender" value="male" checked><label>Homme</label><br/>
+		<input type="radio" name="edit_profile_gender" value="male" {% if user.getUserGender() %}checked{% endif %}><label>Homme</label><br/>
 		<label></label>
-		<input type="radio" name="gender" value="female"><label>Femme</label><br/>
-		<label></label>
-		<input type="radio" name="gender" value="other"><label>Autre</label><br/><br/>
+		<input type="radio" name="edit_profile_gender" value="female" {% if user.getUserGender() == false %}checked{% endif %}><label>Femme</label><br/>
 		<label for="edit_profile_birthdate">Date de naissance</label>
-		<input id="edit_profile_birthdate" type="date" name="edit_profile_birthdate" required> <i class="far fa-calendar-alt"></i><br/><br/><br/>
+		<input id="edit_profile_birthdate" type="date" name="edit_profile_birthdate"  value="{{user.getUserBirthday()|date('Y-m-d')}}" required> <i class="far fa-calendar-alt"></i><br/><br/><br/>
 		<input type="submit" name="send"><br/><br/><br/>
 	</form>
 </div>

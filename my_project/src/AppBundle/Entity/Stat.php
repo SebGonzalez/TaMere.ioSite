@@ -13,30 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Stat
 {
     /**
-     * @var \AppBundle\Entity\User
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="userId", referencedColumnName="userId")
-     * })
-     */
-    private $user;
-
-    /**
-     * @var \AppBundle\Entity\Weapon
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Weapon")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="weaponId", referencedColumnName="weaponId")
-     * })
-     */
-    private $weapon;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="statNbKill", type="bigint", nullable=false)
@@ -70,6 +46,30 @@ class Stat
      * @ORM\Column(name="statNbTouched", type="integer", nullable=false)
      */
     private $statNbTouched;
+
+    /**
+     * @var \AppBundle\Entity\User
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="userId", referencedColumnName="userId")
+     * })
+     */
+    private $user;
+
+    /**
+     * @var \AppBundle\Entity\Object
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Object")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="weaponId", referencedColumnName="objectId")
+     * })
+     */
+    private $object;
 
     /**
      * Set statNbKill
@@ -216,26 +216,26 @@ class Stat
     }
 
     /**
-     * Set weapon
+     * Set object
      *
-     * @param \AppBundle\Entity\Weapon $weapon
+     * @param \AppBundle\Entity\Object $object
      *
      * @return Stat
      */
-    public function setWeapon(\AppBundle\Entity\Weapon $weapon)
+    public function setObject(\AppBundle\Entity\Weapon $object)
     {
-        $this->weapon = $weapon;
+        $this->object = $object;
 
         return $this;
     }
 
     /**
-     * Get weapon
+     * Get object
      *
-     * @return \AppBundle\Entity\Weapon
+     * @return \AppBundle\Entity\Object
      */
-    public function getWeapon()
+    public function getObject()
     {
-        return $this->weapon;
+        return $this->object;
     }
 }

@@ -10,6 +10,7 @@ namespace AppBundle\Repository;
  */
 class ObjectRepository extends \Doctrine\ORM\EntityRepository
 {
+	//Rechercher et renvoi les objets avec leurs categories qui ont ete mit en ligne dans une periode donnee par $start et $end
 	public function findByUploadDateRangeWithCategory(\DateTime $start, \DateTime $end){
 		$qb = $this
 		->createQueryBuilder('o')
@@ -26,7 +27,7 @@ class ObjectRepository extends \Doctrine\ORM\EntityRepository
 
 		return $qb->getQuery()->getResult();
 	}
-
+	//Rechercher et renvoi les objets qui sont d une certaine categorie passe en parametre avec $categoryFilter
 	public function getObjectsWithCategory(array $categoryFilter){
 		$qb = $this
 		->createQueryBuilder('o')

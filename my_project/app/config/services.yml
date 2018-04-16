@@ -41,3 +41,15 @@ services:
     file_transfer:
         class: AppBundle\Service\FileTransfer
         public: true
+        arguments: ["%web_directory%"]
+
+    #Service pour la vérification de droit d'accès
+    authorization_service:
+        class: AppBundle\Service\AuthorizationService
+        public: true
+        arguments: ["@session","@request_stack","@router"]
+    #Redirect exception listener
+    redirect_exception_listener:
+        class: AppBundle\EventListener\RedirectExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

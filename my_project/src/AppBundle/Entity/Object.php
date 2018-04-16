@@ -29,6 +29,13 @@ class Object
     private $objectLabel;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="objectDescription", type="text", length=65535, nullable=false)
+     */
+    private $objectDescription;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="objectPrice", type="float", precision=10, scale=0, nullable=false)
@@ -43,11 +50,11 @@ class Object
     private $objectUploadDate;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="objectDescription", type="text", length=65535, nullable=false)
-     */
-    private $objectDescription;
+    * @var string
+    *
+    *@ORM\Column(name="objectPicturePath", type="string", length=100, nullable=true)
+    */
+    private $objectPicturePath;
 
     /**
      * @var \AppBundle\Entity\ObjectCategory
@@ -168,7 +175,7 @@ class Object
     /**
      * Set objectcategoryid
      *
-     * @param \AppBundle\Entity\Objectcategory $objectcategoryid
+     * @param \AppBundle\Entity\ObjectCategory $objectcategoryid
      *
      * @return Object
      */
@@ -182,10 +189,34 @@ class Object
     /**
      * Get objectCategoryId
      *
-     * @return \AppBundle\Entity\Objectcategory
+     * @return \AppBundle\Entity\ObjectCategory
      */
     public function getObjectCategoryId()
     {
         return $this->objectCategoryId;
+    }
+
+    /**
+     * Set objectPicturePath
+     *
+     * @param string $objectPicturePath
+     *
+     * @return Object
+     */
+    public function setObjectPicturePath($objectPicturePath)
+    {
+        $this->objectPicturePath = $objectPicturePath;
+
+        return $this;
+    }
+
+    /**
+     * Get objectPicturePath
+     *
+     * @return string
+     */
+    public function getObjectPicturePath()
+    {
+        return $this->objectPicturePath;
     }
 }
